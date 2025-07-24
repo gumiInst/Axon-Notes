@@ -99,10 +99,10 @@ On the first SSH session, execute:
 In the second SSH session, run the following:
 
 ```
-./gnss_eval_tcp_client_aarch64
---tcp-host 127.0.0.1
---tcp-port 5000
---eval-hz 120
+./gnss_eval_tcp_client_aarch64 \
+--tcp-host 127.0.0.1 \
+--tcp-port 5000 \
+--eval-hz 120 \
 --log-enable
 ```
 
