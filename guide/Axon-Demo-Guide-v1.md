@@ -72,17 +72,17 @@ You will need **two MobaXterm SSH sessions** open:
 
 On the first SSH session, execute:
 ```
-./ublox_gnss_streamer_aarch64
---serial-port /dev/ttyAMA0
---serial-baudrate 115200
---serial-timeout 1.0
---ntrip-host ntrip.hi-rtk.io
---ntrip-port 2101
---ntrip-tpoint SNS_AUTO
---ntrip-username sns
---ntrip-password 1234
---tcp-host 0.0.0.0
---tcp-port 5000
+./ublox_gnss_streamer_aarch64 \
+--serial-port /dev/ttyAMA0 \
+--serial-baudrate 115200 \
+--serial-timeout 1.0 \
+--ntrip-host ntrip.hi-rtk.io \
+--ntrip-port 2101 \
+--ntrip-mountpoint SNS_AUTO \
+--ntrip-username sns \
+--ntrip-password 1234 \
+--tcp-host 0.0.0.0 \
+--tcp-port 5000 \
 --logger-level info
 ```
 
