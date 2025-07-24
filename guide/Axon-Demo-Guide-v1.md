@@ -117,10 +117,10 @@ On your **laptop**, open the **VS Code workspace** that contains the `emtl30kr_g
 Then run this Python module to start logging:
 
 ```
-python3 -m emtl30klr_streamer_py.main
--l info
---gt-lat 0
---gt-lon 0
+python3 -m emtl30klr_streamer_py.main \
+-l info \
+--gt-lat 0 \
+--gt-lon 0 \
 --log-to-file auto
 ```
 
