@@ -74,7 +74,7 @@ On the first SSH session, execute:
 ```
 ./ublox_gnss_streamer_aarch64 \
 --serial-port /dev/ttyAMA0 \
---serial-baudrate 115200 \
+--serial-baudrate 921600 \
 --serial-timeout 1.0 \
 --ntrip-host ntrip.hi-rtk.io \
 --ntrip-port 2101 \
