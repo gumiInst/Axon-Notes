@@ -74,7 +74,7 @@ On the first SSH session, execute:
 ```
 ./ublox_gnss_streamer_aarch64 \
 --serial-port /dev/ttyAMA0 \
---serial-baudrate 921600 \
+--serial-baudrate 115200 \
 --serial-timeout 1.0 \
 --ntrip-host ntrip.hi-rtk.io \
 --ntrip-port 2101 \
@@ -102,7 +102,7 @@ In the second SSH session, run the following:
 ./gnss_eval_tcp_client_aarch64 \
 --tcp-host 127.0.0.1 \
 --tcp-port 5000 \
---eval-hz 120 \
+--eval-hz 200 \
 --log-enable
 ```
 
