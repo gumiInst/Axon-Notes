@@ -140,3 +140,17 @@ python3 -m emtl30klr_gnss_logger.main -l info --log-to-file auto -p COM11
 - Always verify that RTK fix is achieved before evaluating or comparing GNSS data.
 
 If you face any connectivity, logging, or access issues, recheck cable connections, switch positions, and IP configurations.
+
+
+## add later
+
+ip route del default
+
+ip route add default via 192.168.1.1 dev eth0
+
+
+sudo systemctl stop [email protected]
+
+sudo systemctl stop serial-getty@ttyAMA0.service
+
+systemctl list-unit-files --type=service | grep serial-getty
