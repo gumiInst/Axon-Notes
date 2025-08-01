@@ -23,7 +23,9 @@ Follow the instructions below to configure the Axon, LTE Router, and establish S
   `Username: root`  
   `Password: root`
 
-### ✅ Step 3: Enable Promiscuous Mode
+### ✅ Step 3: Configure Network
+
+#### Enable Promiscuous Mode
 
 - After logging in successfully, run the following command to set the Ethernet interface to promiscuous mode:
 ```
@@ -32,17 +34,44 @@ sudo ip link set dev eth0 promisc on
 
 > ✅ At this point, SSH access to the Axon should be available without any issues.
 
+#### Correct the IP Gateway
+
+The KaTech team recently reinstalled Axon, changing the static IP of ethernet 0 to 192.168.1.200, while the gateway remained at 192.168.0.1. This mismatch causes network connectivity problems.
+
+To resolve the gateway issue, update the default route:
+- Deletes the current default route (gateway) from the routing table.
+```
+sudo ip route del default
+```
+- Adds a new default route, pointing to gateway 192.168.1.1 via the eth0 interface.
+```
+sudoip route add default via 192.168.1.1 dev eth0
+```
+
+This ensures the default gateway matches the device's subnet and restores proper network connectivity.
+
 ### ✅ Step 4: SSH Access via MobaXterm
 
 - On your laptop, open a new **SSH session in MobaXterm**.
 - Connect to the Axon using the following information:  
-  `IP address: 192.168.10.10`  
+  `IP address: 192.168.1.200`  
   `Username: root`  
   `Password: root`
 
 - After accessing Axon via SSH:
   - You may now close the serial terminal.
   - Slide the **red switch to the side opposite the UART port** to enable the **GNSS module** interface.
+
+- Important: Due to a data conflict on the shared uart0 port between the serial terminal and the GNSS module (as described in the report), the service managing the serial terminal must be suspended before switching uart0 to GNSS.
+
+- To resolve this, in your SSH session, run one of the following commands:
+```
+sudo systemctl stop serial-getty@ttyAMA0.service
+```
+or
+```
+sudo systemctl stop [email protected]
+```
 
 ### ✅ Step 5: Emwave Device Setup
 
@@ -102,7 +131,7 @@ In the second SSH session, run the following:
 ./gnss_eval_tcp_client_aarch64 \
 --tcp-host 127.0.0.1 \
 --tcp-port 5000 \
---eval-hz 200 \
+--eval-hz 500 \
 --log-enable
 ```
 
@@ -141,16 +170,9 @@ python3 -m emtl30klr_gnss_logger.main -l info --log-to-file auto -p COM11
 
 If you face any connectivity, logging, or access issues, recheck cable connections, switch positions, and IP configurations.
 
-
-## add later
-
-ip route del default
-
-ip route add default via 192.168.1.1 dev eth0
+> ⚠️ **Note:**  
+> The `sudo` prefix is not required if your system does not support `sudo` or if you are already logged in as the root user. In such cases, you can omit `sudo` from the commands above.
 
 
-sudo systemctl stop [email protected]
 
-sudo systemctl stop serial-getty@ttyAMA0.service
 
-systemctl list-unit-files --type=service | grep serial-getty
