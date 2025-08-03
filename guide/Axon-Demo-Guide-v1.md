@@ -45,7 +45,7 @@ sudo ip route del default
 ```
 - Adds a new default route, pointing to gateway 192.168.1.1 via the eth0 interface.
 ```
-sudoip route add default via 192.168.1.1 dev eth0
+sudo ip route add default via 192.168.1.1 dev eth0
 ```
 
 This ensures the default gateway matches the device's subnet and restores proper network connectivity.
